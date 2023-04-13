@@ -1,7 +1,7 @@
 import app from "./app";
 import { startDatabase } from "./database";
 
-const appPort = process.env.APP_PORT || 3000 ;
+const appPort: number = Number(process.env.APP_PORT) || 3000 ;
 
 const server = (port: number) =>
   app.listen(port, async () => {
@@ -9,7 +9,7 @@ const server = (port: number) =>
     console.log(`Server is running on port ${port}.`);
   });
 
-if (process.env.NODE_ENV === "dev") {
+if (process.env.NODE_ENV === "dev" || "test") {
   server(appPort);
 }
 
