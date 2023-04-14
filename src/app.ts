@@ -11,6 +11,7 @@ import {
   verifyDevIdMid,
 } from './middlewares/developers.middlewares';
 import { createDevInfo } from './logics/developerInfo.logic';
+import { verifyInfoAlreadyExistsMid } from './middlewares/developer.info';
 
 const app: Application = express();
 app.use(express.json());
@@ -25,6 +26,11 @@ app.patch(
 );
 app.delete('/developers/:id', verifyDevIdMid, deleteDeveloper);
 
-app.post('/developers/:id/infos', verifyDevIdMid, createDevInfo);
+app.post(
+  '/developers/:id/infos',
+  verifyDevIdMid,
+  verifyInfoAlreadyExistsMid,
+  createDevInfo
+);
 
 export default app;
