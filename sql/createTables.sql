@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS developer_infos (
 	"preferredOS" "OS" NOT NULL,
 	"developerId" INTEGER NOT NULL UNIQUE,
 	FOREIGN KEY ("developerId") REFERENCES developers ("id")
+	ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS projects (
