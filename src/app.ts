@@ -11,7 +11,7 @@ import {
   verifyDevIdMid,
 } from './middlewares/developers.middlewares';
 import { createDevInfo } from './logics/developerInfo.logic';
-import { verifyInfoAlreadyExistsMid } from './middlewares/developer.info';
+import { verifyInfoAlreadyExistsMid } from './middlewares/developerInfo.middlewares';
 
 const app: Application = express();
 app.use(express.json());

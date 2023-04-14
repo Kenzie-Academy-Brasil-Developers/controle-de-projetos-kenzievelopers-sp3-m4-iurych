@@ -15,12 +15,25 @@ export const createDevInfo = async (
   const devInfoData: TDeveloperInfoRequest = req.body;
   devInfoData.developerId = devId;
 
-  if (devInfoData.referredOS !== 'Linux' || 'Windowns' || 'MacOS') {
+  const arrayDevInfoData = ['Linux', 'Windows', 'MacOS'];
+
+  const verifyRefer = arrayDevInfoData.includes(devInfoData.referredOS);
+
+  if (!verifyRefer) {
+   
     return res.status(400).json({
       message: 'Invalid OS option.',
       options: ['Windows', 'Linux', 'MacOS'],
     });
   }
+
+  // if (devInfoData.referredOS !== 'Linux' || 'Windows' || 'MacOS') {
+
+  //   return res.status(400).json({
+  //     message: 'Invalid OS option.',
+  //     options: ['Windows', 'Linux', 'MacOS'],
+  //   });
+  // }
 
   const queryString: string = format(
     `

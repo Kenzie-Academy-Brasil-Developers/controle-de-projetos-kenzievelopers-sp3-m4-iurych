@@ -14,6 +14,7 @@ export const verifyInfoAlreadyExistsMid = async (
     SELECT * FROM developer_infos 
     WHERE "developerId"  = $1; 
     `;
+
   const queryConfig: QueryConfig = {
     text: queryString,
     values: [devId],
@@ -23,7 +24,7 @@ export const verifyInfoAlreadyExistsMid = async (
     queryConfig
   );
 
-  if (queryResult.rowCount > 0) {
+  if (queryResult.rows[0]) {
     return res.status(409).json({
       message: 'Developer infos already exists.',
     });

@@ -27,13 +27,13 @@ export const createDeveloper = async (
   const queryString: string = format(
     `
 
-          INSERT INTO developers
-              (%I)
-          VALUES
-              (%L)
-          RETURNING *;
+      INSERT INTO developers
+          (%I)
+      VALUES
+          (%L)
+      RETURNING *;
 
-      `,
+    `,
     Object.keys(devData),
     Object.values(devData)
   );
