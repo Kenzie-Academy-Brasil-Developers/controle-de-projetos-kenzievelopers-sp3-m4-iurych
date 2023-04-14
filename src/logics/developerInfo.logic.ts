@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 import format from 'pg-format';
-import { TDeveloperInfo, TDeveloperInfoRequest } from '../interface/developer.interfaces';
+import {
+  TDeveloperInfo,
+  TDeveloperInfoRequest,
+} from '../interface/developer.interfaces';
 import { client } from '../database';
 
 export const createDevInfo = async (
@@ -9,8 +12,15 @@ export const createDevInfo = async (
   res: Response
 ): Promise<Response> => {
   const devId = res.locals.developer.id;
-  const devInfoData:TDeveloperInfoRequest = req.body;
+  const devInfoData: TDeveloperInfoRequest = req.body;
   devInfoData.developerId = devId;
+
+  if (devInfoData.referredOS !== 'Linux' || 'Windowns' || 'MacOS') {
+    return res.status(400).json({
+      message: 'Invalid OS option.',
+      options: ['Windows', 'Linux', 'MacOS'],
+    });
+  }
 
   const queryString: string = format(
     `
