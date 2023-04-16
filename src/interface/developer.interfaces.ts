@@ -17,7 +17,7 @@ export type TDeveloperJoinInfoRetrive = {
 export type TDeveloperInfo = {
   id: number;
   developerSince: Date;
-  referredOS: 'Linux' | 'Windows' | 'MacOS';
+  preferredOS: 'Linux' | 'Windows' | 'MacOS';
   developerId: number;
 };
 

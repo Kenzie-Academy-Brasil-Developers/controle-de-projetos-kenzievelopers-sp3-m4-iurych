@@ -3,21 +3,29 @@ import { QueryConfig, QueryResult } from 'pg';
 import { client } from '../database';
 import { TDeveloper } from '../interface/developer.interfaces';
 
-export const verifyDevIdMid = async (
+export const verifyDevIdMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<Response | void> => {
-  const id: number = Number(req.params.id);
+
+  let id: number;
+  id = Number(req.params.id);
+
+  if (req.route.path === '/projects' && req.method === 'POST') {
+    id = Number(req.body.developerId);
+  }
 
   const queryString: string = `
         SELECT * FROM developers
         WHERE "id" = $1
     `;
+
   const queryConfig: QueryConfig = {
     text: queryString,
     values: [id],
   };
+
   const queryResult: QueryResult<TDeveloper> = await client.query(queryConfig);
 
   if (queryResult.rowCount === 0) {

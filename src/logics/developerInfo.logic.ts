@@ -17,23 +17,14 @@ export const createDevInfo = async (
 
   const arrayDevInfoData = ['Linux', 'Windows', 'MacOS'];
 
-  const verifyRefer = arrayDevInfoData.includes(devInfoData.referredOS);
+  const verifyReferredOS = arrayDevInfoData.includes(devInfoData.preferredOS);
 
-  if (!verifyRefer) {
-   
+  if (!verifyReferredOS) {
     return res.status(400).json({
       message: 'Invalid OS option.',
       options: ['Windows', 'Linux', 'MacOS'],
     });
   }
-
-  // if (devInfoData.referredOS !== 'Linux' || 'Windows' || 'MacOS') {
-
-  //   return res.status(400).json({
-  //     message: 'Invalid OS option.',
-  //     options: ['Windows', 'Linux', 'MacOS'],
-  //   });
-  // }
 
   const queryString: string = format(
     `
@@ -47,9 +38,11 @@ export const createDevInfo = async (
     Object.keys(devInfoData),
     Object.values(devInfoData)
   );
+  console.log('antes');
+  console.log(Object.keys(devInfoData));
   const queryResult: QueryResult<TDeveloperInfo> = await client.query(
     queryString
   );
-
+  console.log('depois');
   return res.status(201).json(queryResult.rows[0]);
 };
