@@ -208,7 +208,7 @@ export const deleteTechProject = async (
 
   const queryResult: QueryResult = await client.query(queryConfigCheck);
 
-  if (queryResult.rows[0] === 0) {
+  if (!queryResult.rows[0]) {
     return res.status(400).json({
       message: 'Technology not related to the project.',
     });
