@@ -13,12 +13,18 @@ import {
 import { createDevInfo } from './logics/developerInfo.logic';
 import { verifyInfoAlreadyExistsMid } from './middlewares/developerInfo.middlewares';
 import {
+  addTechToProject,
   createProject,
   deleteProject,
+  deleteTechProject,
   retrieveProjectById,
   updateProject,
 } from './logics/project.logic';
-import { verifyProjectIdMiddleware } from './middlewares/projects.middlewares';
+import {
+  verifyValidTechNameMiddleware,
+  verifyProjectIdMiddleware,
+  verifyProjectTechExisteMiddleware,
+} from './middlewares/projects.middlewares';
 
 const app: Application = express();
 app.use(express.json());
@@ -51,5 +57,17 @@ app.patch(
   updateProject
 );
 app.delete('/projects/:id', verifyProjectIdMiddleware, deleteProject);
+app.post(
+  '/projects/:id/technologies',
+  verifyProjectIdMiddleware,
+  verifyValidTechNameMiddleware,
+  addTechToProject
+);
+app.delete(
+  '/projects/:id/technologies/:name',
+  verifyProjectIdMiddleware,
+  verifyValidTechNameMiddleware,
+  deleteTechProject
+);
 
 export default app;

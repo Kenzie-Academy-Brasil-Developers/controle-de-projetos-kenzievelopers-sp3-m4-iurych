@@ -38,11 +38,10 @@ export const createDevInfo = async (
     Object.keys(devInfoData),
     Object.values(devInfoData)
   );
-  console.log('antes');
-  console.log(Object.keys(devInfoData));
+  
   const queryResult: QueryResult<TDeveloperInfo> = await client.query(
     queryString
   );
-  console.log('depois');
+
   return res.status(201).json(queryResult.rows[0]);
 };
