@@ -14,6 +14,7 @@ import { createDevInfo } from './logics/developerInfo.logic';
 import { verifyInfoAlreadyExistsMid } from './middlewares/developerInfo.middlewares';
 import {
   createProject,
+  deleteProject,
   retrieveProjectById,
   updateProject,
 } from './logics/project.logic';
@@ -49,5 +50,6 @@ app.patch(
   verifyProjectIdMiddleware,
   updateProject
 );
+app.delete('/projects/:id', verifyProjectIdMiddleware, deleteProject);
 
 export default app;

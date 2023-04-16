@@ -89,3 +89,19 @@ export const updateProject = async (
 
   return res.json(queryResult.rows[0]);
 };
+
+export const deleteProject = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const projectId = res.locals.project.id;
+
+  const queryString: string = `
+    DELETE FROM projects
+    WHERE id = $1
+
+  `;
+  await client.query(queryString, [projectId]);
+
+  return res.status(204).send();
+};
