@@ -59,9 +59,33 @@ export const retrieveProjectById = async (
     text: queryString,
     values: [projectId],
   };
-  
+
   const queryResult: QueryResult<TProjectRetrieve> = await client.query(
     queryConfig
   );
   return res.json(queryResult.rows);
+};
+
+export const updateProject = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const projectId = res.locals.project.id;
+  const projectData: Partial<TProjectRequest> = req.body;
+
+  const queryString: string = format(
+    `
+    UPDATE projects
+    SET(%I) = ROW(%L)
+    WHERE id = $1
+    RETURNING *;
+  `,
+    Object.keys(projectData),
+    Object.values(projectData)
+  );
+  const queryResult: QueryResult<TProject> = await client.query(queryString, [
+    projectId,
+  ]);
+
+  return res.json(queryResult.rows[0]);
 };

@@ -12,7 +12,11 @@ import {
 } from './middlewares/developers.middlewares';
 import { createDevInfo } from './logics/developerInfo.logic';
 import { verifyInfoAlreadyExistsMid } from './middlewares/developerInfo.middlewares';
-import { createProject, retrieveProjectById } from './logics/project.logic';
+import {
+  createProject,
+  retrieveProjectById,
+  updateProject,
+} from './logics/project.logic';
 import { verifyProjectIdMiddleware } from './middlewares/projects.middlewares';
 
 const app: Application = express();
@@ -39,5 +43,11 @@ app.post(
 //PROJECTS & TECHNOLOGIES
 app.post('/projects', verifyDevIdMiddleware, createProject);
 app.get('/projects/:id', verifyProjectIdMiddleware, retrieveProjectById);
+app.patch(
+  '/projects/:id',
+  verifyDevIdMiddleware,
+  verifyProjectIdMiddleware,
+  updateProject
+);
 
 export default app;

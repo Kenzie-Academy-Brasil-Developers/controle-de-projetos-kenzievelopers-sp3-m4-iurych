@@ -87,7 +87,7 @@ export const updateDeveloper = async (
   }
 
   const queryString: string = format(
-    `
+  `
     UPDATE developers
     SET(%I) = ROW(%L)
     WHERE id = $1

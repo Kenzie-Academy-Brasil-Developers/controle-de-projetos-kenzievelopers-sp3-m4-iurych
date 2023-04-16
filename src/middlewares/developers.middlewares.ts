@@ -8,11 +8,12 @@ export const verifyDevIdMiddleware = async (
   res: Response,
   next: NextFunction
 ): Promise<Response | void> => {
-
   let id: number;
   id = Number(req.params.id);
 
   if (req.route.path === '/projects' && req.method === 'POST') {
+    id = Number(req.body.developerId);
+  } else if (req.route.path === '/projects/:id' && req.method === 'PATCH') {
     id = Number(req.body.developerId);
   }
 
